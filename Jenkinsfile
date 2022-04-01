@@ -17,10 +17,7 @@ pipeline {
         echo 'this is tesr'
       }
     }
-    if (params.environment == dev)
-    {
-      exit 0
-    }
+    
     stage ('deploy1') {
       steps {
         echo 'this is deploy1'
