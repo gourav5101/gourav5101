@@ -7,16 +7,16 @@ pipeline {
   stages {
     stage ('scan'){
       parallel {
-        stage ('build') {
+        stage ('build1') {
           steps {
             echo 'this is build'
             sh 'uname -a'
           }
         }
-        stage ('test') {
+        stage ('build2') {
           steps {
             script {
-              echo 'this is test'
+              echo 'this is build2'
               if (params.environment == 'uat'){
                 exit 0
               }            
@@ -26,14 +26,14 @@ pipeline {
       }
     }
     
-    stage ('deploy1') {
+    stage ('test') {
       steps {
-        echo 'this is deploy1'
+        echo 'this is test'
       }
     }
-    stage ('deploy2') {
+    stage ('deploy') {
       steps {
-        echo 'this is deploy2'
+        echo 'this is deploy'
       }
     }
   }
