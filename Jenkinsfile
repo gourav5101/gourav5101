@@ -2,8 +2,6 @@ pipeline {
   agent any
   parameters {
     string(name: 'tag', defaultvalue: '', description: 'Tag to Build')
-    choice(choices: ['dev', 'test', 'staging', 'uat', 'pre-prod', 'prod'],name: 'environment', defaultvalue: '', description: 'Deploy to which environment')
-    
   }
   stages {
     stage ('build') {
