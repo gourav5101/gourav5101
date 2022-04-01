@@ -1,15 +1,13 @@
 pipeline {
   agent any
   stages {
-      stage{
-        steps("build") {
-          
-        }
-      }
     stage{
-        steps("test") {
-          
-        }
+      steps("build") {
+      }
+    }
+    stage{
+      steps("test") {
+        
       }
     }
   }
