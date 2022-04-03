@@ -18,7 +18,7 @@ pipeline {
             script {
               echo 'this is build2'
               if (params.environment == 'uat'){
-                sh exit 0
+                sh "exit 0"
               }            
             }
           }
