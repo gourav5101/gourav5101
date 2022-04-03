@@ -23,8 +23,8 @@ pipeline {
       }
     }
     if (params.environment == 'uat'){
-                  currentBuild.result = 'SUCCESS'
-                return
+        currentBuild.result = 'SUCCESS'
+        return
     } 
     stage ('test') {
       steps {
