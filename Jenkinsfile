@@ -22,41 +22,23 @@ pipeline {
         }
       }
     }
-    stage ('check for exit') {
-      steps {
-        script{
-          if (params.environment == 'uat'){
-            echo 'exit'
-            currentBuild.result = 'SUCCESS'
-            return
-          }
-          else{
-            stages {
-              stage ('test in exit') {
-                steps {
-                echo 'this is test in exit'
-                }
-             }
-              stage ('deploy in exit') {
-                steps {
-                  echo 'this is deploy in exit'
-                }
-              }
-            }
-          }
-        } 
-      } 
-    }  
-    /*stage ('test') {
-      steps {
-        echo 'this is test'
+  }
+  if (params.environment == 'uat'){
+    stages{
+      stage {
+        steps{
+          echo 'this is if'
+        }
       }
     }
-    stage ('deploy') {
-      steps {
-        echo 'this is deploy'
+  }
+  else{
+    stages{
+      stage {
+        steps{
+          echo 'this is else'
+        }
       }
     }
-    */
   }
 }
