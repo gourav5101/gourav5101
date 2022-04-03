@@ -16,15 +16,16 @@ pipeline {
         stage ('build2') {
           steps {
             script {
-              echo 'this is build2'
-              if (params.environment == 'uat'){
-                sh "exit 0"
-              }            
+              echo 'this is build2'           
             }
           }
         }
       }
     }
+    if (params.environment == 'uat'){
+                  currentBuild.result = 'SUCCESS'
+                return
+    } 
     stage ('test') {
       steps {
         echo 'this is test'
