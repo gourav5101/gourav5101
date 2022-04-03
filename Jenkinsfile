@@ -4,10 +4,12 @@ pipeline {
     string(name: 'tag', defaultValue: '', description: 'Tag to Build')
     choice(choices: ['dev','test','uat','stag','pre-prod','prod'], name: 'environment', description: 'Environment to build')
   }
-  if (params.environment == 'uat'){
-    echo 'exit'
+  if (params.environment == 'uat'){ 
     currentBuild.result = 'SUCCESS'
     return
+  }
+  else{
+    echo 'else'
   }
   stages {
     stage ('scan'){
