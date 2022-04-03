@@ -29,20 +29,22 @@ pipeline {
             echo 'exit'
             currentBuild.result = 'SUCCESS'
             return
-          } 
+          }
+          else{
+            stages {
+              stage ('test in exit') {
+                steps {
+                echo 'this is test in exit'
+                }
+             }
+              stage ('deploy in exit') {
+                steps {
+                  echo 'this is deploy in exit'
+                }
+              }
+            }
+          }
         } 
-      }
-      stages {
-        stage ('test in exit') {
-          steps {
-            echo 'this is test in exit'
-          }
-        }
-        stage ('deploy in exit') {
-          steps {
-            echo 'this is deploy in exit'
-          }
-        }
       } 
     }  
     /*stage ('test') {
