@@ -25,7 +25,9 @@ pipeline {
         }
       }
     }
-    
+    if (params.environment == 'uat'){
+                sh "exit 0"
+    }
     stage ('test') {
       steps {
         echo 'this is test'
