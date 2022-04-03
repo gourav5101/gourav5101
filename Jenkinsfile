@@ -23,14 +23,12 @@ pipeline {
       }
     }
     stage ('check for exit') {
-      steps {
-        script{
+
           if (params.environment == 'uat'){
             echo 'exit'
             currentBuild.result = 'SUCCESS'
             return
-          }
-        } 
+ 
       }
     }
    
