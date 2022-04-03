@@ -22,10 +22,13 @@ pipeline {
         }
       }
     }
-    if (params.environment == 'uat'){
+    stage ('check for exit') {
+       if (params.environment == 'uat'){
         currentBuild.result = 'SUCCESS'
         return
-    } 
+      } 
+    }
+   
     stage ('test') {
       steps {
         echo 'this is test'
