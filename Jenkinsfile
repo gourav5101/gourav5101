@@ -23,6 +23,7 @@ pipeline {
       }
     }
     stage ('check for exit') {
+      echo 'Check for exit'
        if (params.environment == 'uat'){
         currentBuild.result = 'SUCCESS'
         return
