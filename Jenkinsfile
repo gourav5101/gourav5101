@@ -6,12 +6,12 @@ pipeline {
         choice(choices: ['true' , 'false'],name: 'daily_scan')
 	}
   stages {
-    stage {
-      steps('common_steps'){
+    stage ('common_steps') {
+      steps {
         echo 'this is common steps'
       }
     }
-    stage ('pr_stage'){
+    stage ('pr_stage') {
       when {
         expression (prams.pr_scan ==true || prams.daily_scan ==true)
       }
@@ -23,7 +23,7 @@ pipeline {
         }
       }
     }
-    stage ('daily_stage'){
+    stage ('daily_stage') {
       when {
         expression (params.daily_scan ==true && skipRemainingStages == false )
       }
@@ -35,7 +35,7 @@ pipeline {
         }
       }
     }
-    stage ('deply_stage'){
+    stage ('deply_stage') {
       when {
         expression (skipRemainingStages == true )
       }
