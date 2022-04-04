@@ -1,37 +1,52 @@
+def skipRemainingStages ='true'
 pipeline {
     agent any
 	parameters {
         choice(
-            choices: ['PR' , 'dev'],
-            name: 'REQUESTED_ACTION')
+            choices: ['true' , 'false'],name: 'pr_scan')
+            choices: ['true' , 'false'],name: 'daily_scan')
 	}
-    stages {
-		stage('Stage 1') {
-			steps {
-                script {
-				sh 'echo Stage 1'
-				}
-			}
-		}
-        stage('Stage 2') {
-            steps {
-                script {
-				    sh 'echo Stage 2'
-                    if (REQUESTED_ACTION == 'PR') {
-                        stage ('Stage 3') {
-                            sh 'echo Stage 3'
-                        }
-						stage ('Stage 4') {
-                            sh 'echo Stage 4'
-                        }
-                    }
-                    else{
-                        stage ('Stage 5') {
-                            sh 'echo Stage 5'
-                        }
-                    }
-                }
-            }
+  stages {
+    stage {
+      steps{
+        echo 'this is common steps'
+      }
+    }
+    stage ('pr_stage'){
+      when {
+        expression (prams.pr_scan ==true || prams.daily_scan ==true)
+      }
+      steps {
+        script{
+          if ()
+          echo 'this is pr or daily scan '
+          skipRemainingStages = 'false'
+          echo "${skipRemainingStages}"
         }
-	}
+      }
+    }
+    stage ('daily_stage'){
+      when {
+        expression (params.daily_scan ==true && skipRemainingStages == false )
+      }
+      steps {
+        script{
+          echo 'this is only daily scan'
+          skipRemainingStages = 'false'
+          echo "${skipRemainingStages}"
+        }
+      }
+    }
+    stage ('deply_stage'){
+      when {
+        expression (skipRemainingStages == true )
+      }
+      steps {
+        script{
+          echo 'this is deply'
+          echo "${skipRemainingStages}"
+        }
+      }
+    }
+  }
 }
