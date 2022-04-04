@@ -23,13 +23,13 @@ pipeline {
       when {expression (params.daily_scan ==true && skipRemainingStages == false )}
       steps {
           echo 'this is only daily scan'
-          //skipRemainingStages = 'false'
+          
           echo "${skipRemainingStages}"
 
       }
     }
     stage ('deply_stage') {
-      when {expression (skipRemainingStages == true )}
+      //when {expression (skipRemainingStages == true )}
       steps {
           echo 'this is deply'
           echo "${skipRemainingStages}"
