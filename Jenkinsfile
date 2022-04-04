@@ -7,7 +7,7 @@ pipeline {
 	}
   stages {
     stage {
-      steps{
+      steps('common steps'){
         echo 'this is common steps'
       }
     }
