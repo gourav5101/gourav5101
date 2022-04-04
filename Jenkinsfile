@@ -2,9 +2,8 @@ def skipRemainingStages ='true'
 pipeline {
     agent any
 	parameters {
-        choice(
-            choices: ['true' , 'false'],name: 'pr_scan')
-            choices: ['true' , 'false'],name: 'daily_scan')
+        choice(choices: ['true' , 'false'],name: 'pr_scan')
+        choice(choices: ['true' , 'false'],name: 'daily_scan')
 	}
   stages {
     stage {
