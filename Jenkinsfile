@@ -17,7 +17,6 @@ pipeline {
       }
       steps {
         script{
-          if ()
           echo 'this is pr or daily scan '
           skipRemainingStages = 'false'
           echo "${skipRemainingStages}"
