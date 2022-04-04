@@ -12,7 +12,7 @@ pipeline {
       }
     }
     stage ('pr_stage') {
-      when  (prams.pr_scan ==true || prams.daily_scan ==true)
+      when  {expression {prams.pr_scan ==true || prams.daily_scan ==true}}
       steps {
           echo 'this is pr or daily scan '
           //skipRemainingStages = 'false'
@@ -20,7 +20,7 @@ pipeline {
       }
     }
     stage ('daily_stage') {
-      when (params.daily_scan ==true && skipRemainingStages == false )
+      when { expression {params.daily_scan ==true && skipRemainingStages == false }}
       steps {
           echo 'this is only daily scan'
           //skipRemainingStages = 'false'
