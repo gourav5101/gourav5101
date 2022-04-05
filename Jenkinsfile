@@ -12,11 +12,10 @@ pipeline {
       }
     }
     stage ('pr_stage') {
-      //when  {expression {prams.pr_scan ==true || prams.daily_scan == true}}
+      when  {expression {prams.pr_scan ==true || prams.daily_scan == true}}
       steps {
           script {
              echo 'this is pr or pr scan '
-             if (prams.pr_scan == true || prams.daily_scan == true) {
             try{
              skipRemainingStages = 'false'
              print skipRemainingStages = ${skipRemainingStages}
@@ -30,11 +29,10 @@ pipeline {
         }
     }
     stage ('daily_stage') {
-      //when { expression {params.daily_scan ==true && skipRemainingStages == false }}
+      when { expression {params.daily_scan ==true && skipRemainingStages == false }}
       steps {
          script{
             echo 'this is pr or daily scan '
-             if (params.daily_scan ==true && skipRemainingStages == false) {
              try{
              skipRemainingStages = 'false'
              print skipRemainingStages = ${skipRemainingStages}
@@ -44,20 +42,15 @@ pipeline {
             currentBuild.result = 'SUCCESS'
             return
              }
-            }
           }
         }
     }
     stage ('deply_stage') {
-      //when  {expression {skipRemainingStages == true }}
+      when  {expression {skipRemainingStages == true }}
       steps {
-          script {
-              if (skipRemainingStages == true) {
-                echo 'this is deply'
-                echo "${skipRemainingStages}"
-              }else {
-                echo 'no if'
-            }
+        script {
+            echo 'this is deply'
+            echo "${skipRemainingStages}"
           }
         }
     }
@@ -67,5 +60,4 @@ pipeline {
       }
     }
   }
-}
 }
