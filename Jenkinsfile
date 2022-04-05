@@ -39,7 +39,7 @@ pipeline {
              skipRemainingStages = 'false'
              print skipRemainingStages = ${skipRemainingStages}
              echo "${skipRemainingStages}"
-             }catch{
+             }catch(err){
              echo "Caught: ${err}"
             currentBuild.result = 'SUCCESS'
             return
