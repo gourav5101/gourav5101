@@ -1,9 +1,9 @@
-def skipRemainingStages ='true'
+def skipRemainingStages ='1'
 pipeline {
     agent any
 	parameters {
-        choice(choices: ['true' , 'false'],name: 'pr_scan')
-        choice(choices: ['true' , 'false'],name: 'daily_scan')
+        choice(choices: ['false' , 'true'],name: 'pr_scan')
+        choice(choices: ['false' , 'true'],name: 'daily_scan')
 	}
   stages {
     stage ('common_steps') {
@@ -17,7 +17,7 @@ pipeline {
           script {
              echo 'this is pr or pr scan '
             try{
-             skipRemainingStages = 'false'
+             skipRemainingStages = '2'
              print skipRemainingStages = ${skipRemainingStages}
              echo "${skipRemainingStages}"
             }catch (err) {
@@ -29,7 +29,7 @@ pipeline {
         }
     }
     stage ('daily_stage') {
-      when { expression {params.daily_scan ==true && skipRemainingStages == false }}
+      when { expression {params.daily_scan ==true && skipRemainingStages == '1' }}
       steps {
          script{
             echo 'this is pr or daily scan '
@@ -46,7 +46,7 @@ pipeline {
         }
     }
     stage ('deply_stage') {
-      when  {expression {skipRemainingStages == true }}
+      when  {expression {skipRemainingStages == '1' }}
       steps {
         script {
             echo 'this is deply'
