@@ -118,11 +118,14 @@ pipeline {
           script {
              echo 'this is pr or pr scan '
              if (prams.pr_scan == true || prams.daily_scan == true) {
+            try{
              skipRemainingStages = 'false'
              print skipRemainingStages = ${skipRemainingStages}
              echo "${skipRemainingStages}"
-            }else {
-                echo 'no if'
+            }catch (err) {
+            echo "Caught: ${err}"
+            currentBuild.result = 'SUCCESS'
+            return
             }
           }
         }
@@ -133,11 +136,15 @@ pipeline {
          script{
             echo 'this is pr or daily scan '
              if (params.daily_scan ==true && skipRemainingStages == false) {
+             try{
              skipRemainingStages = 'false'
              print skipRemainingStages = ${skipRemainingStages}
              echo "${skipRemainingStages}"
-            }else {
-                echo 'no if'
+             }catch{
+             echo "Caught: ${err}"
+            currentBuild.result = 'SUCCESS'
+            return
+             }
             }
           }
         }
