@@ -162,5 +162,10 @@ pipeline {
           }
         }
     }
+    stage ('deploy2'){
+      steps{
+        echo'this is deploy2'
+      }
+    }
   }
 }
