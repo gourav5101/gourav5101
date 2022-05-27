@@ -9,7 +9,7 @@ pipeline {
     stage ('common_steps') {
       steps {
         echo 'this is common steps'
-        echo 'sh docker --version'
+        sh 'docker --version'
       }
     }
   }
