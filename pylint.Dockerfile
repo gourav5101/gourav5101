@@ -1,12 +1,14 @@
-FROM ubuntu
-RUN apt-get update
-RUN apt-get install -y python3.9
-RUN apt-get install -y pip
-#RUN pip install -U pylint=2.13.8
-RUN pip install -U pip setuptools wheel
-RUN pip install -U pylint==2.13.8
-#RUN python3 --version
-RUN pylint --version
-#ADD hello.py /home/hello.py
-#ADD a.py /home/a.py
-CMD echo "this is test"
+FROM python:3.9.6-slim-buster
+
+RUN mkdir -p /code
+WORKDIR /code
+
+RUN set -eux \
+    && pip install -U pip setuptools wheel \
+    && pip install -U pylint==2.13.8 \
+    && pip freeze \
+    && rm -rf /root/.cache/pip
+
+COPY docker-pylint-entrypoint.sh /docker-pylint-entrypoint.sh
+
+ENTRYPOINT ["/docker-pylint-entrypoint.sh"]
