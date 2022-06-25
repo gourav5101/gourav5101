@@ -3,7 +3,8 @@
 def buildStatuses =[]
 
 @Library('jenkins-shared-library')_
-
+import buildStatus
+import groovy.json.JsonBuilder
 pipeline {
     agent any
 	parameters {
