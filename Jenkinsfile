@@ -38,7 +38,7 @@ pipeline {
           sh 'docker run --rm -it -v ${PWD}:/code pytest_image_image'
           junit testResults: 'pytest_result.xml',skipPublishingChecks: true
           */
-          //buildStatuses << new buildStatus ( test_name: 'pytest', status: true )
+          buildStatuses << new buildStatus ( test_name: 'pytest', status: true )
           //println new JsonBuilder( buildStatuses ).toPrettyString()
         }
       }
