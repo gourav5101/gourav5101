@@ -24,7 +24,7 @@ pipeline {
             tool: pyLint(name : 'pylint Error', pattern:'pylint.log'), 
           )
           */
-          //buildStatuses << new buildStatus ( test_name: 'pylint', status: true )
+          buildStatuses << new buildStatus ( test_name: 'pylint', status: true )
         }
       }
     }
