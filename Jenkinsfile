@@ -51,6 +51,7 @@ pipeline {
         script{
           echo 'deploy'
           env.json = new JsonBuilder( env.buildStatuses ).toPrettyString()
+          echo env.json
           deploy_app()
         }
       }
