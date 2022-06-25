@@ -48,7 +48,6 @@ pipeline {
         script{
           echo 'deploy'
           def a= println new JsonBuilder( buildStatuses ).toPrettyString()
-          sh "echo $a"
           deploy_app()
         }
       }
