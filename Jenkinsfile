@@ -52,7 +52,7 @@ pipeline {
       }
     }
 
-    stage ('final scan') {
+    /*stage ('final scan') {
       steps {
         script{
           echo 'final'
@@ -60,6 +60,6 @@ pipeline {
         }
       } 
     }
-
+*/
   }
 }
