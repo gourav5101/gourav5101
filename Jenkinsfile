@@ -2,7 +2,7 @@
 //import groovy.json.JsonBuilder
 def buildStatuses =[]
 
-@Library('pipeline-library-demo')_
+@Library('jenkins-shared-library')_
 import buildStatus
 import groovy.json.JsonBuilder
 pipeline {
