@@ -55,5 +55,14 @@ pipeline {
         }
       }
     }
+
+    stage ('final scan') {
+      steps {
+        script{
+          echo 'final'
+          echo env.json
+        }
+      }
+    }
   }
 }
