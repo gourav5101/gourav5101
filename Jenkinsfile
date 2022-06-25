@@ -1,6 +1,7 @@
 //import buildStatus
 //import groovy.json.JsonBuilder
 def buildStatuses =[]
+@Field def json = ''
 @Library('jenkins-shared-library')_
 import buildStatus
 import groovy.json.JsonBuilder
@@ -48,6 +49,7 @@ pipeline {
           echo 'deploy'
           def json = new JsonBuilder( buildStatuses )
           //println json.toPrettyString()
+          echo json
           deploy_app()
         }
       }
