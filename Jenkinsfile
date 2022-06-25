@@ -49,7 +49,7 @@ pipeline {
           echo 'deploy'
           json = new JsonBuilder( buildStatuses )
           //println json.toPrettyString()
-          //echo json
+          echo json
           deploy_app()
         }
       }
