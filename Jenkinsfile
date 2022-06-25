@@ -1,9 +1,12 @@
 //import buildStatus
 //import groovy.json.JsonBuilder
 def buildStatuses =[]
+
 @Library('jenkins-shared-library')_
 import buildStatus
 import groovy.json.JsonBuilder
+
+def json = new JsonBuilder( buildStatuses ).toPrettyString()
 pipeline {
     agent any
 	parameters {
@@ -46,11 +49,19 @@ pipeline {
       steps {
         script{
           echo 'deploy'
-          def json = new JsonBuilder( buildStatuses ).toPrettyString()
-          echo json
+          //def json = new JsonBuilder( buildStatuses ).toPrettyString()
+          //echo json
           deploy_app()
         }
       }
+    }
+
+    stage ('final scan') {
+      steps {
+        script{
+          echo json
+        }
+      } 
     }
 
   }
