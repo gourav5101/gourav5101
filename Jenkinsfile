@@ -48,7 +48,7 @@ pipeline {
         script{
           echo 'deploy'
           def json = new JsonBuilder( buildStatuses )
-          echo ${json}
+          echo "${json}"
           //println json.toPrettyString()
           deploy_app()
         }
