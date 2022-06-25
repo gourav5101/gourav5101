@@ -1,7 +1,7 @@
 //import buildStatus
 //import groovy.json.JsonBuilder
 def buildStatuses =[]
-@Field def json = ''
+def json
 @Library('jenkins-shared-library')_
 import buildStatus
 import groovy.json.JsonBuilder
