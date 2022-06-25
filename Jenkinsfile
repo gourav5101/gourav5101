@@ -1,6 +1,6 @@
 //import buildStatus
 //import groovy.json.JsonBuilder
-def buildStatuses =[]
+env.buildStatuses =[]
 
 @Library('jenkins-shared-library')_
 import buildStatus
@@ -25,7 +25,7 @@ pipeline {
             tool: pyLint(name : 'pylint Error', pattern:'pylint.log'), 
           )
           */
-          buildStatuses << new buildStatus ( test_name: 'pylint', status: true )
+          env.buildStatuses << new buildStatus ( test_name: 'pylint', status: true )
         }
       }
     }
@@ -39,7 +39,7 @@ pipeline {
           sh 'docker run --rm -it -v ${PWD}:/code pytest_image_image'
           junit testResults: 'pytest_result.xml',skipPublishingChecks: true
           */
-          buildStatuses << new buildStatus ( test_name: 'pytest', status: true )
+          env.buildStatuses << new buildStatus ( test_name: 'pytest', status: true )
         }
       }
     }
@@ -48,7 +48,7 @@ pipeline {
       steps {
         script{
           echo 'deploy'
-          env.json = new JsonBuilder( buildStatuses ).toPrettyString()
+          env.json = new JsonBuilder( env.buildStatuses ).toPrettyString()
           deploy_app()
         }
       }
