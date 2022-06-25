@@ -6,7 +6,7 @@ def buildStatuses =[]
 import buildStatus
 import groovy.json.JsonBuilder
 
-def json = new JsonBuilder( buildStatuses ).toPrettyString()
+def env.json = new JsonBuilder( buildStatuses ).toPrettyString()
 pipeline {
     agent any
 	parameters {
@@ -49,8 +49,7 @@ pipeline {
       steps {
         script{
           echo 'deploy'
-          json = new JsonBuilder( buildStatuses ).toPrettyString()
-          echo json
+          env.json = new JsonBuilder( buildStatuses ).toPrettyString()
           deploy_app()
         }
       }
@@ -60,7 +59,7 @@ pipeline {
       steps {
         script{
           echo 'final'
-          echo json
+          echo env.json
         }
       } 
     }
