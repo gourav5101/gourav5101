@@ -1,8 +1,10 @@
 //import buildStatus
 //import groovy.json.JsonBuilder
 def buildStatuses =[]
-def load_file='buildStatus.groovy'
 
+@Library('pipeline-library-demo')_
+import buildStatus
+import groovy.json.JsonBuilder
 pipeline {
     agent any
 	parameters {
@@ -22,7 +24,7 @@ pipeline {
             tool: pyLint(name : 'pylint Error', pattern:'pylint.log'), 
           )
           */
-          buildStatuses << new buildStatus ( test_name: 'pylint', status: true )
+          //buildStatuses << new buildStatus ( test_name: 'pylint', status: true )
         }
       }
     }
@@ -36,10 +38,20 @@ pipeline {
           sh 'docker run --rm -it -v ${PWD}:/code pytest_image_image'
           junit testResults: 'pytest_result.xml',skipPublishingChecks: true
           */
-          buildStatuses << new buildStatus ( test_name: 'pytest', status: true )
+          //buildStatuses << new buildStatus ( test_name: 'pytest', status: true )
           //println new JsonBuilder( buildStatuses ).toPrettyString()
         }
       }
     }
+
+    stage ('deploy scan') {
+      steps {
+        script{
+          echo 'deploy'
+          deploy_app()
+        }
+      }
+    }
+
   }
 }
