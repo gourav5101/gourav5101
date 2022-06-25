@@ -1,6 +1,8 @@
-import buildStatus
-import groovy.json.JsonBuilder
+//import buildStatus
+//import groovy.json.JsonBuilder
 def buildStatuses =[]
+def load_file='buildStatus.groovy'
+
 pipeline {
     agent any
 	parameters {
@@ -35,7 +37,7 @@ pipeline {
           junit testResults: 'pytest_result.xml',skipPublishingChecks: true
           */
           buildStatuses << new buildStatus ( test_name: 'pytest', status: true )
-          println new JsonBuilder( buildStatuses ).toPrettyString()
+          //println new JsonBuilder( buildStatuses ).toPrettyString()
         }
       }
     }
