@@ -49,8 +49,8 @@ pipeline {
       steps {
         script{
           echo 'deploy'
-          //def json = new JsonBuilder( buildStatuses ).toPrettyString()
-          //echo json
+          json = new JsonBuilder( buildStatuses ).toPrettyString()
+          echo json
           deploy_app()
         }
       }
