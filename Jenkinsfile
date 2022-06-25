@@ -39,7 +39,6 @@ pipeline {
           junit testResults: 'pytest_result.xml',skipPublishingChecks: true
           */
           buildStatuses << new buildStatus ( test_name: 'pytest', status: true )
-          println new JsonBuilder( buildStatuses ).toPrettyString()
         }
       }
     }
@@ -48,6 +47,8 @@ pipeline {
       steps {
         script{
           echo 'deploy'
+          def a= println new JsonBuilder( buildStatuses ).toPrettyString()
+          sh "echo $a"
           deploy_app()
         }
       }
