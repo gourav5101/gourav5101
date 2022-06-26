@@ -12,6 +12,9 @@ pipeline {
         choice(choices: ['false' , 'true'],name: 'pr_scan')
         choice(choices: ['false' , 'true'],name: 'daily_scan')
 	}
+  environment{
+    buildStatuses = []
+  }
   stages {
     stage ('pylint scan') {
       steps {
@@ -25,8 +28,7 @@ pipeline {
             tool: pyLint(name : 'pylint Error', pattern:'pylint.log'), 
           )
           */
-          env.buildStatuses =[]
-          env.buildStatuses << new buildStatus ( test_name: 'pylint', status: true )
+          buildStatuses << new buildStatus ( test_name: 'pylint', status: true )
           //buildStatuses << new buildStatus ( test_name: 'pylint', status: true )
         }
       }
@@ -40,7 +42,7 @@ pipeline {
           sh 'docker run --rm -it -v ${PWD}:/code pytest_image_image'
           junit testResults: 'pytest_result.xml',skipPublishingChecks: true
           */
-          env.buildStatuses << new buildStatus ( test_name: 'pylint', status: true )
+          buildStatuses << new buildStatus ( test_name: 'pylint', status: true )
           //buildStatuses << new buildStatus ( test_name: 'pytest', status: true )
         }
       }
@@ -49,7 +51,7 @@ pipeline {
       steps {
         script{
           echo 'deploy'
-          env.json = new JsonBuilder( env.buildStatuses ).toPrettyString()
+          env.json = new JsonBuilder( buildStatuses ).toPrettyString()
           //env.json = new JsonBuilder( buildStatuses ).toPrettyString()
           deploy_app()
         }
