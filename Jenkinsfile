@@ -1,6 +1,6 @@
 //import buildStatus
 //import groovy.json.JsonBuilder
-//def buildStatuses =[]
+def buildStatuses =[]
 @Library('jenkins-shared-library')_
 import buildStatus
 import groovy.json.JsonBuilder
@@ -12,9 +12,6 @@ pipeline {
         choice(choices: ['false' , 'true'],name: 'pr_scan')
         choice(choices: ['false' , 'true'],name: 'daily_scan')
 	}
-  environment{
-    buildStatuses = []
-  }
   stages {
     stage ('pylint scan') {
       steps {
