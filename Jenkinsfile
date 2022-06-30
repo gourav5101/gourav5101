@@ -5,7 +5,6 @@ def buildStatuses =[]
 import buildStatus
 import groovy.json.JsonBuilder
 
-//def env.json = new JsonBuilder( buildStatuses ).toPrettyString()
 pipeline {
     agent any
 	parameters {
