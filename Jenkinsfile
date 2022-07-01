@@ -12,6 +12,16 @@ pipeline {
         choice(choices: ['false' , 'true'],name: 'daily_scan')
 	}
   stages {
+    stage ('sloccount scan') {
+      steps {
+        script{
+          echo 'pylint'
+          sh 'sloccount --duplicates --wide --details . > sloccount.sc'
+          sloccountPublish encoding: '', pattern: ''
+        }
+      }
+    }
+  /*stages {
     stage ('pylint scan') {
       when {
         expression { params.pr_scan  == 'true' ||  params.daily_scan == 'true' }
@@ -25,7 +35,7 @@ pipeline {
         }
       }
     }
-    /*
+    
     stage ('pytest scan') {
       steps {
         script{
