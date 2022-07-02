@@ -16,6 +16,7 @@ pipeline {
       steps {
         script{
           echo 'pylint'
+          sh 'source ~/.zshrc'
           sh 'sloccount --duplicates --wide --details . > sloccount.sc'
           sloccountPublish encoding: '', pattern: ''
         }
