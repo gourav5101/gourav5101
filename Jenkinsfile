@@ -16,9 +16,12 @@ pipeline {
       steps {
         script{
           echo 'pylint'
-          sh 'source ~/.zshrc'
-          sh 'sloccount --duplicates --wide --details . > sloccount.sc'
-          sloccountPublish encoding: '', pattern: ''
+          withEnv(['PATH+EXTRA=/usr/sbin:/usr/bin:/sbin:/bin']){
+            sh 'source ~/.zshrc'
+            sh 'sloccount --duplicates --wide --details . > sloccount.sc'
+            sloccountPublish encoding: '', pattern: ''
+          }
+          
         }
       }
     }
