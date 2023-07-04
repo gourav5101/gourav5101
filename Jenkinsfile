@@ -16,8 +16,11 @@ pipeline {
       steps {
         script{
           echo 'pylint'
-            sh 'sloccount --duplicates --wide --details . > sloccount.sc'
-            sloccountPublish encoding: '', pattern: ''
+		withCredentials([usernamePassword(credentialsId: 'githubapi',myapipass: 'githubapi')]) {
+    		echo "${env.myapipass}"
+}
+            //sh 'sloccount --duplicates --wide --details . > sloccount.sc'
+           // sloccountPublish encoding: '', pattern: ''
           
         }
       }
@@ -53,7 +56,7 @@ pipeline {
       steps {
         script{
           echo 'updateBuild Status'
-          updateBuildStatus(buildStatuses)
+         // updateBuildStatus(buildStatuses)
         }
       }
     }
@@ -61,7 +64,7 @@ pipeline {
       steps {
         script{
           echo 'deploy'
-          deploy_app()
+          //deploy_app()
         }
       }
     }
